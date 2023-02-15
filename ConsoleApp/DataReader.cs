@@ -2,18 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.IO;
     using System.Linq;
-    using System.Threading.Tasks;
+    using ConsoleApp.ImportedObject;
 
     public class DataReader
     {
-        IEnumerable<ImportedObject> ImportedObjects;
+        IEnumerable<ImportedFile> ImportedObjects;
 
         public void ImportAndPrintData(string fileToImport, bool printData = true)
         {
-            ImportedObjects = new List<ImportedObject>() { new ImportedObject() };
+            ImportedObjects = new List<ImportedFile>() { new ImportedFile() };
 
             var streamReader = new StreamReader(fileToImport);
 
@@ -101,30 +100,5 @@
         }
     }
 
-    class ImportedObject : ImportedObjectBaseClass
-    {
-        public string Name
-        {
-            get;
-            set;
-        }
-        public string Schema;
 
-        public string ParentName;
-        public string ParentType
-        {
-            get; set;
-        }
-
-        public string DataType { get; set; }
-        public string IsNullable { get; set; }
-
-        public double NumberOfChildren;
-    }
-
-    class ImportedObjectBaseClass
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
-    }
 }
