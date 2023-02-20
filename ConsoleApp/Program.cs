@@ -1,18 +1,24 @@
 ﻿namespace ConsoleApp
 {
+    using ConsoleApp.ImportedObject;
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     internal class Program
     {
         static void Main(string[] args)
         {
             var reader = new DataReader();
-            reader.ImportAndPrintData("dataa.csv");
+            
+            List<string> sourceDataFile = reader.ReadDataFromFile("dataa.csv");
+            if (sourceDataFile == null) { Console.WriteLine("Path to file is empty"); return; }
+
+            List<ImportedFile> dataFile = reader.ConvertInfoFromFile(sourceDataFile);
+            if (dataFile.Count == 0) { Console.WriteLine("Data from file is empty."); return; }
+            
+            reader.CorrectData(ref dataFile);
+            reader.AssignNumberOfChilren(ref dataFile);
+            reader.PrintInfo(ref dataFile);
         }
     }
 }
