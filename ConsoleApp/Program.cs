@@ -16,9 +16,9 @@
             List<ImportedFile> dataFile = reader.ConvertInfoFromFile(sourceDataFile);
             if (dataFile.Count == 0) { Console.WriteLine("Data from file is empty."); return; }
             
-            reader.CorrectData(ref dataFile);
-            reader.AssignNumberOfChilren(ref dataFile);
-            reader.PrintInfo(ref dataFile);
+            reader.CorrectData(dataFile);
+            reader.AssignNumberOfChilren(dataFile);
+            reader.PrintInfo(dataFile);
         }
     }
 }
