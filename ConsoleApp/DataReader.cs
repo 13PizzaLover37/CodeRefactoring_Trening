@@ -6,7 +6,13 @@
     using System.IO;
 
     public class DataReader
+
     {
+        /// <summary>
+        /// Method for read date from file
+        /// </summary>
+        /// <param name="fileToImport">Path to the file from which need to read data</param>
+        /// <returns>List of string that collect info from file</returns>
         public List<string> ReadDataFromFile(string fileToImport)
         {
             if (string.IsNullOrWhiteSpace(fileToImport)) { Console.WriteLine("Path to the file is empty"); return null; }
@@ -27,6 +33,11 @@
 
         }
 
+        /// <summary>
+        /// Convert information from list of string to list of imported files
+        /// </summary>
+        /// <param name="importedLines">List of strings from file</param>
+        /// <returns>List of imported files</returns>
         public List<ImportedFile> ConvertInfoFromFile(List<string> importedLines)
         {
             if (importedLines.Count == 0) return new List<ImportedFile>();
@@ -62,7 +73,12 @@
             return ImportedObjects;
         }
 
-        public List<ImportedFile> CorrectData(ref List<ImportedFile> importedFiles)
+        /// <summary>
+        /// Correct data in list of imported file
+        /// </summary>
+        /// <param name="importedFiles">List of imported file</param>
+        /// <returns>Corrected list of imported file</returns>
+        public List<ImportedFile> CorrectData(List<ImportedFile> importedFiles)
         {
             if (importedFiles.Count == 0)
             {
@@ -82,7 +98,11 @@
             return importedFiles;
         }
 
-        public void AssignNumberOfChilren(ref List<ImportedFile> ImportedObjects)
+        /// <summary>
+        /// Fill in objects with information about count of childrens
+        /// </summary>
+        /// <param name="ImportedObjects">List of Imported file for filling up information about childrens</param>
+        public void AssignNumberOfChilren(List<ImportedFile> ImportedObjects)
         {
             if (ImportedObjects.Count == 0)
             {
@@ -105,7 +125,11 @@
             }
         }
 
-        public void PrintInfo(ref List<ImportedFile> ImportedFiles)
+        /// <summary>
+        /// Print info about objects
+        /// </summary>
+        /// <param name="ImportedFiles">List type of imported files</param>
+        public void PrintInfo(List<ImportedFile> ImportedFiles)
         {
             if (ImportedFiles.Count == 0) Console.WriteLine("File is empty. No info");
 
@@ -119,14 +143,14 @@
                     continue;
                 }
 
-                if (database?.Type.ToUpper() != "DATABASE") continue;
+                if (database?.Type.ToLower() != "database") continue;
 
                 Console.WriteLine($"Database '{database.Name}' ({database.NumberOfChildren} tables)");
 
                 // print all database's tables
                 foreach (var table in ImportedFiles)
                 {
-                    if (table.Type.ToUpper() != "TABLE") continue;
+                    if (table.Type.ToLower() != "table") continue;
 
                     if (table.ParentType?.ToUpper() != database.Type.ToUpper()) continue;
                     if (table.ParentName?.ToUpper() != database.Name?.ToUpper()) { continue; }
